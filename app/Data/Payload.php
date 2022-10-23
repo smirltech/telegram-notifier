@@ -62,7 +62,7 @@ class Payload
         $content .= "$this->repositoryDescription";
         $content .= "\n\n";
         $content .= $this->hashtag() . "\n";
-        $content .= "#{$this->branch}";
+        $content .= "#{$this->branch()}";
 
         //dd($content);
 
@@ -75,6 +75,11 @@ class Payload
     }
 
     //hashtag() is a method that returns the hashtag from the repository name
+
+    private function branch(): array|string
+    {
+        return str_replace('-', '', $this->branch);
+    }
 
     public function url(): string
     {
