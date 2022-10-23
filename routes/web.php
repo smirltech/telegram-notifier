@@ -17,20 +17,6 @@ use Illuminate\Support\Facades\Notification;
 |
 */
 
-Route::get('/github-notify-push/{id}', function (Request $request, int $id) {
-    try {
-        //'-868088992'
-        Notification::route('telegram', $id)->notify(new SendGithubPushNotification());
-        return Response::json([
-            'success' => true,
-            'message' => 'Notification sent successfully',
-            'data' =>$request->all(),
-            'id' => $id
-        ]);
-    } catch (Exception $e) {
-        return Response::json([
-            'success' => false,
-            'message' => $e->getMessage(),
-        ],400);
-    }
+Route::get('/', function () {
+    return app()->version();
 });

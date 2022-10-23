@@ -11,10 +11,10 @@ use NotificationChannels\Telegram\TelegramMessage;
 class SendGithubPushNotification extends Notification
 {
     use Queueable;
-    public function __construct()
+    public function __construct(private mixed $data)
     {
-        //
     }
+
 
     public function via($notifiable)
     {
@@ -24,7 +24,7 @@ class SendGithubPushNotification extends Notification
     {
         return TelegramMessage::create()
          //  ->to('-868088992')
-            ->content('Enviando nuestro primer mensaje con Telegram');
+            ->content(json_encode($this->data));
     }
 
     public function toArray($notifiable)
