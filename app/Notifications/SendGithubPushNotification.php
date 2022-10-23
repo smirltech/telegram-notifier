@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class SendNotification extends Notification
+class SendGithubPushNotification extends Notification
 {
     use Queueable;
     public function __construct()
