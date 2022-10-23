@@ -25,10 +25,10 @@ class Payload
             sender: $data['sender']['login'],
             url: $data['compare'],
             image: $data['sender']['avatar_url'],
-            added: $data['commits']['added'],
-            removed: $data['commits']['removed'],
-            modified: $data['commits']['modified'],
-            message: $data['commits']['message'],
+            added: $data['head_commit']['added'],
+            removed: $data['head_commit']['removed'],
+            modified: $data['head_commit']['modified'],
+            message: $data['head_commit']['message'],
         );
     }
 
