@@ -28,7 +28,7 @@ class Payload
             repository: $data['repository']['full_name'],
             repositoryUrl: $data['repository']['html_url'],
             repositoryDescription: self::removeSpecialChar($data['repository']['description']),
-            branch: str_replace('refs/heads/', '', $data['ref']),
+            branch: self::removeSpecialChar(str_replace('refs/heads/', '', $data['ref'])),
             sender: $data['sender']['login'],
             url: $data['compare'],
             image: $data['sender']['avatar_url'],
