@@ -7,6 +7,8 @@ class Payload
 
     public function __construct(
         public string $repository,
+        public string $repositoryUrl,
+        public string $repositoryDescription,
         public string $sender,
         public string $url,
         public string $image,
@@ -22,6 +24,8 @@ class Payload
     {
         return new static(
             repository: $data['repository']['full_name'],
+            repositoryUrl: $data['repository']['html_url'],
+            repositoryDescription: $data['repository']['description'],
             sender: $data['sender']['login'],
             url: $data['compare'],
             image: $data['sender']['avatar_url'],
@@ -35,13 +39,9 @@ class Payload
     public function content(): string
     {
         // create a message content from attributes using md
-        $content = "Repository: {$this->repository} \n";
-        $content .= "Pusher: {$this->sender} \n";
-        $content .= "Message: {$this->message} \n";
-        $content .= "Added: " . count($this->added) . " \n";
-        $content .= "Removed: " . count($this->removed) . " \n";
-        $content .= "Modified: " . count($this->modified) . " \n";
-
+        $content = "*$this->sender* pushed to [$this->repository]($this->repositoryUrl)\n";
+        $content .= "Message: *{$this->message}* \n";
+        $content .= "Changes: " . count($this->added) + count($this->removed) + count($this->modified) . " \n";
 
         return $content;
     }

@@ -5,7 +5,7 @@ namespace App\Notifications;
 use App\Data\Payload;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\Telegram\TelegramMessage;
+use NotificationChannels\Telegram\TelegramFile;
 
 class SendGithubPushNotification extends Notification
 {
@@ -23,7 +23,7 @@ class SendGithubPushNotification extends Notification
 
     public function toTelegram($notifiable)
     {
-        return TelegramMessage::create()
+        return TelegramFile::create()
             ->content($this->payload->content())
             ->photo($this->payload->image())
             ->button('View on Github', $this->payload->url());
