@@ -7,10 +7,9 @@ class Payload
 
     public function __construct(
         public string $repository,
-        public string $pusher,
+        public string $sender,
         public string $url,
         public string $image,
-        public array  $commits,
         public array  $added,
         public array  $removed,
         public array  $modified,
@@ -23,14 +22,13 @@ class Payload
     {
         return new static(
             repository: $data['repository']['full_name'],
-            pusher: $data['pusher']['name'],
+            sender: $data['sender']['login'],
             url: $data['compare'],
-            image: $data['repository']['sender']['avatar_url'],
-            commits: $data['commits'],
-            added: $data['head_commit']['added'],
-            removed: $data['head_commit']['removed'],
-            modified: $data['head_commit']['modified'],
-            message: $data['head_commit']['message'],
+            image: $data['sender']['avatar_url'],
+            added: $data['commits']['added'],
+            removed: $data['commits']['removed'],
+            modified: $data['commits']['modified'],
+            message: $data['commits']['message'],
         );
     }
 
@@ -38,9 +36,8 @@ class Payload
     {
         // create a message content from attributes using md
         $content = "Repository: {$this->repository} \n";
-        $content .= "Pusher: {$this->pusher} \n";
+        $content .= "Pusher: {$this->sender} \n";
         $content .= "Message: {$this->message} \n";
-        $content .= "Commits: " . count($this->commits) . " \n";
         $content .= "Added: " . count($this->added) . " \n";
         $content .= "Removed: " . count($this->removed) . " \n";
         $content .= "Modified: " . count($this->modified) . " \n";
