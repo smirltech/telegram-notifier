@@ -9,9 +9,11 @@ class Payload
         public string $repository,
         public string $repositoryUrl,
         public string $repositoryDescription,
+        public string $branch,
         public string $sender,
         public string $url,
         public string $image,
+        public array  $commits,
         public array  $added,
         public array  $removed,
         public array  $modified,
@@ -26,9 +28,11 @@ class Payload
             repository: $data['repository']['full_name'],
             repositoryUrl: $data['repository']['html_url'],
             repositoryDescription: $data['repository']['description'],
+            branch: str_replace('refs/heads/', '', $data['ref']),
             sender: $data['sender']['login'],
             url: $data['compare'],
             image: $data['sender']['avatar_url'],
+            commits: $data['commits'],
             added: $data['head_commit']['added'],
             removed: $data['head_commit']['removed'],
             modified: $data['head_commit']['modified'],
@@ -42,12 +46,14 @@ class Payload
         $content = "*$this->sender* pushed to [$this->repository]($this->repositoryUrl)\n";
         $content .= "\n";
         $content .= "Message: {$this->message} \n";
+        $content .= "Commits: " . count($this->commits) . ", ";
         $content .= "Added: " . count($this->added) . ", ";
         $content .= "Modified: " . count($this->modified) . ", ";
         $content .= "Removed: " . count($this->removed) . "\n\n";
         $content .= "$this->repositoryDescription";
         $content .= "\n\n";
-        $content .= $this->hashtag();
+        $content .= $this->hashtag() . "\n";
+        $content .= "#{$this->branch}";
 
         return $content;
     }
