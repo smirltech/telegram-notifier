@@ -40,7 +40,7 @@ class Payload
     {
         // create a message content from attributes using md
         $content = "*$this->sender* pushed to [$this->repository]($this->repositoryUrl)\n";
-        $content .= "Message: *{$this->message}* \n";
+        $content .= "Message: {$this->message} \n";
         $content .= "Changes: " . count($this->added) + count($this->removed) + count($this->modified) . " \n";
 
         return $content;
