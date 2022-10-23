@@ -46,8 +46,15 @@ class Payload
         $content .= "Modified: " . count($this->modified) . ", ";
         $content .= "Removed: " . count($this->removed) . "\n\n";
         $content .= "$this->repositoryDescription";
+        $content .= "\n\n";
+        $content .= $this->hashtag();
 
         return $content;
+    }
+
+    public function hashtag(): string
+    {
+        return '#' . str_replace('-', '', explode('/', $this->repository)[1]);
     }
 
     public function url(): string
@@ -55,8 +62,11 @@ class Payload
         return $this->url;
     }
 
+    //hashtag() is a method that returns the hashtag from the repository name
+
     public function image(): string
     {
         return $this->image;
     }
+
 }
