@@ -27,7 +27,7 @@ class Payload
         return new static(
             repository: $data['repository']['full_name'],
             repositoryUrl: $data['repository']['html_url'],
-            repositoryDescription: $data['repository']['description'],
+            repositoryDescription: self::removeSpecialChar($data['repository']['description']),
             branch: str_replace('refs/heads/', '', $data['ref']),
             sender: $data['sender']['login'],
             url: $data['compare'],
@@ -36,8 +36,18 @@ class Payload
             added: $data['head_commit']['added'],
             removed: $data['head_commit']['removed'],
             modified: $data['head_commit']['modified'],
-            message: $data['head_commit']['message'],
+            message: self::removeSpecialChar($data['head_commit']['message'])
         );
+    }
+
+    public static function removeSpecialChar($str): array|string
+    {
+
+        $res = str_replace(array('\'', '"',
+            ',', ';', '<', '>', '_'), ' ', $str);
+
+        // Returning the result
+        return $res;
     }
 
     public function content(): string
@@ -45,7 +55,7 @@ class Payload
         // create a message content from attributes using md
         $content = "*$this->sender* pushed to [$this->repository]($this->repositoryUrl)\n";
         $content .= "\n";
-        $content .= "Message: {$this->message} \n";
+        $content .= "_{$this->message}_ \n\n";
         $content .= "Commits: " . count($this->commits) . ", ";
         $content .= "Added: " . count($this->added) . ", ";
         $content .= "Modified: " . count($this->modified) . ", ";
@@ -55,6 +65,8 @@ class Payload
         $content .= $this->hashtag() . "\n";
         $content .= "#{$this->branch}";
 
+        //dd($content);
+
         return $content;
     }
 
@@ -63,12 +75,12 @@ class Payload
         return '#' . str_replace('-', '', explode('/', $this->repository)[1]);
     }
 
+    //hashtag() is a method that returns the hashtag from the repository name
+
     public function url(): string
     {
         return $this->url;
     }
-
-    //hashtag() is a method that returns the hashtag from the repository name
 
     public function image(): string
     {
