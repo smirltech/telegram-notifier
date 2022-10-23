@@ -4,15 +4,13 @@ namespace App\Notifications;
 
 use App\Data\Payload;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramMessage;
-use Illuminate\Support\Str;
 
 class SendGithubPushNotification extends Notification
 {
     use Queueable;
+
     public function __construct(private Payload $payload)
     {
     }
@@ -22,11 +20,12 @@ class SendGithubPushNotification extends Notification
     {
         return ['telegram'];
     }
+
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-         // // ->to('-868088992')
             ->content($this->payload->content())
+            ->photo($this->payload->image())
             ->button('View on Github', $this->payload->url());
     }
 
