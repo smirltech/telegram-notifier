@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramMessage;
+use Illuminate\Support\Str;
 
 class SendGithubPushNotification extends Notification
 {
@@ -24,7 +25,7 @@ class SendGithubPushNotification extends Notification
     {
         return TelegramMessage::create()
          //  ->to('-868088992')
-            ->content(json_encode($this->data));
+            ->content(Str::limit(json_encode($this->data)));
     }
 
     public function toArray($notifiable)
