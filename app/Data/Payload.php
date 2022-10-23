@@ -43,8 +43,7 @@ class Payload
     public static function removeSpecialChar($str): array|string
     {
 
-        $res = str_replace(array('\'', '"',
-            ',', ';', '<', '>', '_'), ' ', $str);
+        $res = str_replace(array('_'), '-', $str);
 
         // Returning the result
         return $res;
