@@ -24,7 +24,7 @@ class SendGithubPushNotification extends Notification
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-         //  ->to('-868088992')
+         // // ->to('-868088992')
             ->content(Str::limit(json_encode($this->data)));
     }
 
