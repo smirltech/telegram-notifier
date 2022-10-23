@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::match(['get','post'],'/github-notify/{id}', function (Request $request, int $id) {
     try {
         //'-868088992' is my telegram chat id
-        Notification::route('telegram', $id)->notify(new SendGithubPushNotification($request->all()));
+        Notification::route('telegram', $id)->notify(new SendGithubPushNotification(payload: $request->all()));
         return Response::json([
             'success' => true,
             'message' => 'Notification sent successfully',

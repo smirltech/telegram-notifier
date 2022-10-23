@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class SendGithubPushNotification extends Notification
 {
     use Queueable;
-    public function __construct(private mixed $data)
+    public function __construct(private mixed $payload)
     {
     }
 
@@ -25,7 +25,9 @@ class SendGithubPushNotification extends Notification
     {
         return TelegramMessage::create()
          // // ->to('-868088992')
-            ->content(Str::limit(json_encode($this->data)));
+            ->content("{$this->payload['repository']['full_name']} has been updated")
+            ->content("Commits: ".count($this->payload['commits']))
+            ->button('View on Github', $this->payload['compare']);
     }
 
     public function toArray($notifiable)
