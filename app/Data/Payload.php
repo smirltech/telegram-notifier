@@ -52,8 +52,8 @@ class Payload
     public function content(): string
     {
         // create a message content from attributes using md
-        $content = "*$this->sender* pushed to [$this->repository]($this->repositoryUrl)\n";
-        $content .= "\n";
+        // $content = "*$this->sender* pushed to [$this->repository]($this->repositoryUrl)\n";
+        $content .= "";
         $content .= "_{$this->message}_ \n\n";
         $content .= "Commits: " . count($this->commits) . ", ";
         $content .= "Added: " . count($this->added) . ", ";
@@ -76,11 +76,6 @@ class Payload
 
     //hashtag() is a method that returns the hashtag from the repository name
 
-    private function branch(): array|string
-    {
-        return str_replace('-', '', $this->branch);
-    }
-
     public function url(): string
     {
         return $this->url;
@@ -89,6 +84,11 @@ class Payload
     public function image(): string
     {
         return $this->image;
+    }
+
+    private function branch(): array|string
+    {
+        return str_replace('-', '', $this->branch);
     }
 
 }
