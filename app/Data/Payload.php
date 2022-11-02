@@ -52,8 +52,8 @@ class Payload
     public function content(): string
     {
         // create a message content from attributes using md
-        // $content = "*$this->sender* pushed to [$this->repository]($this->repositoryUrl)\n";
-        $content = "";
+        $content = "[$this->repository]($this->repositoryUrl)\n";
+        $content .= "\n";
         $content .= "_{$this->message}_ \n\n";
         $content .= "Commits: " . count($this->commits) . ", ";
         $content .= "Added: " . count($this->added) . ", ";
