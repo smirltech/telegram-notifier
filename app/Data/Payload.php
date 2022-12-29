@@ -2,6 +2,8 @@
 
 namespace App\Data;
 
+use Illuminate\Support\Str;
+
 class Payload
 {
 
@@ -78,7 +80,7 @@ class Payload
 
     private function branch(): array|string
     {
-        return str_replace('-', '', $this->branch);
+        return Str::replace(['-','/'], '_', $this->branch);
     }
 
     public function url(): string
