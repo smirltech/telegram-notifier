@@ -73,14 +73,14 @@ class Payload
 
     public function hashtag(): string
     {
-        return '#' . str_replace('-', '', explode('/', $this->repository)[1]);
+        return '#' . Str::replace('-', '', explode('/', $this->repository)[1]);
     }
 
     //hashtag() is a method that returns the hashtag from the repository name
 
     private function branch(): array|string
     {
-        return Str::replace(['-','/'], '_', $this->branch);
+        return Str::replace(['-','/'], '', $this->branch);
     }
 
     public function url(): string

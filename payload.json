@@ -1,0 +1,211 @@
+{
+    "ref": "refs/heads/feature/eleve_show",
+    "before": "c9b25c934dcdcd8ff361583fd8fd8407eb60e8d9",
+    "after": "d76299932b6350954856d7dcb992d8b3b8fb3779",
+    "repository": {
+        "id": 579608860,
+        "node_id": "R_kgDOIowhHA",
+        "name": "cenk",
+        "full_name": "smirltech/cenk",
+        "private": true,
+        "owner": {
+            "name": "smirltech",
+            "email": "contact@smirltech.com",
+            "login": "smirltech",
+            "id": 65227409,
+            "node_id": "MDEyOk9yZ2FuaXphdGlvbjY1MjI3NDA5",
+            "avatar_url": "https://avatars.githubusercontent.com/u/65227409?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/smirltech",
+            "html_url": "https://github.com/smirltech",
+            "followers_url": "https://api.github.com/users/smirltech/followers",
+            "following_url": "https://api.github.com/users/smirltech/following{/other_user}",
+            "gists_url": "https://api.github.com/users/smirltech/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/smirltech/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/smirltech/subscriptions",
+            "organizations_url": "https://api.github.com/users/smirltech/orgs",
+            "repos_url": "https://api.github.com/users/smirltech/repos",
+            "events_url": "https://api.github.com/users/smirltech/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/smirltech/received_events",
+            "type": "Organization",
+            "site_admin": false
+        },
+        "html_url": "https://github.com/smirltech/cenk",
+        "description": "School Managment System for College Excellent Nyembe Kazambi + APIs",
+        "fork": false,
+        "url": "https://github.com/smirltech/cenk",
+        "forks_url": "https://api.github.com/repos/smirltech/cenk/forks",
+        "keys_url": "https://api.github.com/repos/smirltech/cenk/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/smirltech/cenk/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/smirltech/cenk/teams",
+        "hooks_url": "https://api.github.com/repos/smirltech/cenk/hooks",
+        "issue_events_url": "https://api.github.com/repos/smirltech/cenk/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/smirltech/cenk/events",
+        "assignees_url": "https://api.github.com/repos/smirltech/cenk/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/smirltech/cenk/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/smirltech/cenk/tags",
+        "blobs_url": "https://api.github.com/repos/smirltech/cenk/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/smirltech/cenk/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/smirltech/cenk/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/smirltech/cenk/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/smirltech/cenk/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/smirltech/cenk/languages",
+        "stargazers_url": "https://api.github.com/repos/smirltech/cenk/stargazers",
+        "contributors_url": "https://api.github.com/repos/smirltech/cenk/contributors",
+        "subscribers_url": "https://api.github.com/repos/smirltech/cenk/subscribers",
+        "subscription_url": "https://api.github.com/repos/smirltech/cenk/subscription",
+        "commits_url": "https://api.github.com/repos/smirltech/cenk/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/smirltech/cenk/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/smirltech/cenk/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/smirltech/cenk/issues/comments{/number}",
+        "contents_url": "https://api.github.com/repos/smirltech/cenk/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/smirltech/cenk/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/smirltech/cenk/merges",
+        "archive_url": "https://api.github.com/repos/smirltech/cenk/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/smirltech/cenk/downloads",
+        "issues_url": "https://api.github.com/repos/smirltech/cenk/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/smirltech/cenk/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/smirltech/cenk/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/smirltech/cenk/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/smirltech/cenk/labels{/name}",
+        "releases_url": "https://api.github.com/repos/smirltech/cenk/releases{/id}",
+        "deployments_url": "https://api.github.com/repos/smirltech/cenk/deployments",
+        "created_at": 1671354817,
+        "updated_at": "2022-12-18T09:17:00Z",
+        "pushed_at": 1672321421,
+        "git_url": "git://github.com/smirltech/cenk.git",
+        "ssh_url": "git@github.com:smirltech/cenk.git",
+        "clone_url": "https://github.com/smirltech/cenk.git",
+        "svn_url": "https://github.com/smirltech/cenk",
+        "homepage": null,
+        "size": 23985,
+        "stargazers_count": 0,
+        "watchers_count": 0,
+        "language": "PHP",
+        "has_issues": true,
+        "has_projects": true,
+        "has_downloads": true,
+        "has_wiki": true,
+        "has_pages": false,
+        "has_discussions": false,
+        "forks_count": 0,
+        "mirror_url": null,
+        "archived": false,
+        "disabled": false,
+        "open_issues_count": 0,
+        "license": null,
+        "allow_forking": false,
+        "is_template": false,
+        "web_commit_signoff_required": false,
+        "topics": [
+
+        ],
+        "visibility": "private",
+        "forks": 0,
+        "open_issues": 0,
+        "watchers": 0,
+        "default_branch": "master",
+        "stargazers": 0,
+        "master_branch": "master",
+        "organization": "smirltech"
+    },
+    "pusher": {
+        "name": "francisnnumbi",
+        "email": "francisnnumbi@yandex.com"
+    },
+    "organization": {
+        "login": "smirltech",
+        "id": 65227409,
+        "node_id": "MDEyOk9yZ2FuaXphdGlvbjY1MjI3NDA5",
+        "url": "https://api.github.com/orgs/smirltech",
+        "repos_url": "https://api.github.com/orgs/smirltech/repos",
+        "events_url": "https://api.github.com/orgs/smirltech/events",
+        "hooks_url": "https://api.github.com/orgs/smirltech/hooks",
+        "issues_url": "https://api.github.com/orgs/smirltech/issues",
+        "members_url": "https://api.github.com/orgs/smirltech/members{/member}",
+        "public_members_url": "https://api.github.com/orgs/smirltech/public_members{/member}",
+        "avatar_url": "https://avatars.githubusercontent.com/u/65227409?v=4",
+        "description": ""
+    },
+    "sender": {
+        "login": "francisnnumbi",
+        "id": 23620828,
+        "node_id": "MDQ6VXNlcjIzNjIwODI4",
+        "avatar_url": "https://avatars.githubusercontent.com/u/23620828?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/francisnnumbi",
+        "html_url": "https://github.com/francisnnumbi",
+        "followers_url": "https://api.github.com/users/francisnnumbi/followers",
+        "following_url": "https://api.github.com/users/francisnnumbi/following{/other_user}",
+        "gists_url": "https://api.github.com/users/francisnnumbi/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/francisnnumbi/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/francisnnumbi/subscriptions",
+        "organizations_url": "https://api.github.com/users/francisnnumbi/orgs",
+        "repos_url": "https://api.github.com/users/francisnnumbi/repos",
+        "events_url": "https://api.github.com/users/francisnnumbi/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/francisnnumbi/received_events",
+        "type": "User",
+        "site_admin": false
+    },
+    "created": false,
+    "deleted": false,
+    "forced": false,
+    "base_ref": null,
+    "compare": "https://github.com/smirltech/cenk/compare/c9b25c934dcd...d76299932b63",
+    "commits": [
+        {
+            "id": "d76299932b6350954856d7dcb992d8b3b8fb3779",
+            "tree_id": "17d14eedf904e0e1e62cd8db7f9a8f2af0e7319e",
+            "distinct": true,
+            "message": "integration de presence dans le view de l'élève",
+            "timestamp": "2022-12-29T15:43:31+02:00",
+            "url": "https://github.com/smirltech/cenk/commit/d76299932b6350954856d7dcb992d8b3b8fb3779",
+            "author": {
+                "name": "Francis Nduba Numbi",
+                "email": "francisnnumbi@yandex.com",
+                "username": "francisnnumbi"
+            },
+            "committer": {
+                "name": "Francis Nduba Numbi",
+                "email": "francisnnumbi@yandex.com",
+                "username": "francisnnumbi"
+            },
+            "added": [
+
+            ],
+            "removed": [
+
+            ],
+            "modified": [
+                "resources/views/livewire/scolarite/eleves/show.blade.php"
+            ]
+        }
+    ],
+    "head_commit": {
+        "id": "d76299932b6350954856d7dcb992d8b3b8fb3779",
+        "tree_id": "17d14eedf904e0e1e62cd8db7f9a8f2af0e7319e",
+        "distinct": true,
+        "message": "integration de presence dans le view de l'élève",
+        "timestamp": "2022-12-29T15:43:31+02:00",
+        "url": "https://github.com/smirltech/cenk/commit/d76299932b6350954856d7dcb992d8b3b8fb3779",
+        "author": {
+            "name": "Francis Nduba Numbi",
+            "email": "francisnnumbi@yandex.com",
+            "username": "francisnnumbi"
+        },
+        "committer": {
+            "name": "Francis Nduba Numbi",
+            "email": "francisnnumbi@yandex.com",
+            "username": "francisnnumbi"
+        },
+        "added": [
+
+        ],
+        "removed": [
+
+        ],
+        "modified": [
+            "resources/views/livewire/scolarite/eleves/show.blade.php"
+        ]
+    }
+}
