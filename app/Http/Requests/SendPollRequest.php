@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SendMessageRequest extends FormRequest
+class SendPollRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class SendMessageRequest extends FormRequest
     {
         return [
             'token' => ['nullable', 'string'],
-            'content' => ['required', 'string'],
-            'buttons' => ['nullable', 'array'],
-            'buttons.*.text' => ['required', 'string'],
-            'buttons.*.url' => ['required', 'string'],
+            'question' => ['required', 'string'],
+            'choices' => ['required', 'array'],
         ];
     }
 }

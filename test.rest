@@ -6,20 +6,17 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "token": "5666692487:AAEfWkTrGjeDjbzoszpQXDlTRdtjRzsAwfM",
-    "message": {
-        "content": "Hello, world!",
-        "buttons": [
-            {
-                "text": "Button 1",
-                "url": "https://google.com"
-            },
-            {
-                "text": "Button 2",
-                "url": "https://google.com"
-            }
-        ]
-    }
+    "content": "Hello, world!",
+    "buttons": [
+        {
+            "text": "Button 1",
+            "url": "https://google.com"
+        },
+        {
+            "text": "Button 2",
+            "url": "https://google.com"
+        }
+    ]
 }
 
 ### Send location to Telegram channel
@@ -28,11 +25,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "token": "5666692487:AAEfWkTrGjeDjbzoszpQXDlTRdtjRzsAwfM",
-    "message": {
-        "latitude": 55.753215,
-        "longitude": 37.622504
-    }
+    "latitude": 55.753215,
+    "longitude": 37.622504
 }
 
 ### Send location to Telegram channel
@@ -41,9 +35,12 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "token": "5666692487:AAEfWkTrGjeDjbzoszpQXDlTRdtjRzsAwfM",
-    "message": {
-        "latitude": 55.753215,
-        "longitude": 37.622504
-    }
+    "question": "What is your favorite color?",
+    "choices": [
+        "Red",
+        "Green",
+        "Blue"
+    ]
 }
+
+

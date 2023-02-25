@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SendContactRequest;
 use App\Http\Requests\SendLocationRequest;
 use App\Http\Requests\SendMessageRequest;
+use App\Http\Requests\SendPollRequest;
 use App\Notifications\TelegramNotification;
 use Exception;
 use Illuminate\Config\Repository;
@@ -11,8 +13,10 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
+use NotificationChannels\Telegram\TelegramContact;
 use NotificationChannels\Telegram\TelegramLocation;
 use NotificationChannels\Telegram\TelegramMessage;
+use NotificationChannels\Telegram\TelegramPoll;
 
 class NotificationController extends Controller
 {
@@ -33,25 +37,36 @@ class NotificationController extends Controller
      */
     public function message(SendMessageRequest $request, string $chatId)
     {
-        $content = $request->message['content'];
-        $buttons = $request->message['buttons'];
         try {
-            $t = TelegramMessage::create()->content($content)->token($request->token ?? $this->token);
-            foreach ($buttons as $button) {
+            $payload = (object)$request->validated();
+            $t = TelegramMessage::create()
+                ->content($payload->content)
+                ->token($payload->token ?? $this->token);
+            foreach ($payload->buttons ?? [] as $button) {
                 $t->button($button['text'], $button['url']);
             }
             Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
 
-            return Response::json([
-                'success' => true,
-                'message' => 'Notification sent successfully',
-            ]);
+            return $this->successResponse();
         } catch (Exception $e) {
-            return Response::json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+            return $this->errorResponse($e->getMessage());
         }
+    }
+
+    private function successResponse()
+    {
+        return Response::json([
+            'success' => true,
+            'message' => 'Notification sent successfully',
+        ]);
+    }
+
+    private function errorResponse(string $getMessage)
+    {
+        return Response::json([
+            'success' => false,
+            'message' => $getMessage,
+        ], 400);
     }
 
     /** Send location to Telegram chat
@@ -61,21 +76,61 @@ class NotificationController extends Controller
      */
     public function location(SendLocationRequest $request, string $chatId)
     {
-        $latitude = $request->message['latitude'];
-        $longitude = $request->message['longitude'];
         try {
-            $t = TelegramLocation::create()->latitude($latitude)->longitude($longitude)->token($request->token ?? $this->token);
+            $payload = (object)$request->validated();
+            $t = TelegramLocation::create()
+                ->latitude($payload->latitude)
+                ->longitude($payload->longitude)
+                ->token($payload->token ?? $this->token);
             Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
 
-            return Response::json([
-                'success' => true,
-                'message' => 'Notification sent successfully',
-            ]);
+            return $this->successResponse();
         } catch (Exception $e) {
-            return Response::json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+            return $this->errorResponse($e->getMessage());
+        }
+    }
+
+    /** Send poll to Telegram chat
+     * @param SendPollRequest $request
+     * @param string $chatId
+     * @return JsonResponse
+     */
+    public function poll(SendPollRequest $request, string $chatId)
+    {
+        try {
+            $payload = (object)$request->validated();
+            $t = TelegramPoll::create()
+                ->question($payload->question)
+                ->choices($payload->choices)
+                ->token($payload->token ?? $this->token);
+            Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
+
+            return $this->successResponse();
+        } catch (Exception $e) {
+            return $this->errorResponse($e->getMessage());
+        }
+    }
+
+    /** Send poll to Telegram chat
+     * @param SendContactRequest $request
+     * @param string $chatId
+     * @return JsonResponse
+     */
+    public function contact(SendContactRequest $request, string $chatId)
+    {
+        try {
+            $payload = (object)$request->validated();
+            $t = TelegramContact::create()
+                ->phoneNumber($payload->phone_number)
+                ->firstName($payload->first_name)
+                ->lastName($payload->last_name ?? null)
+                ->vcard($payload->vcard ?? null)
+                ->token($payload->token ?? $this->token);
+            Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
+
+            return $this->successResponse();
+        } catch (Exception $e) {
+            return $this->errorResponse($e->getMessage());
         }
     }
 }

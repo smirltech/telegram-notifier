@@ -23,10 +23,9 @@ class SendLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'token' => ['required', 'string'],
-            'message' => ['required', 'array'],
-            'message.latitude' => ['required', 'numeric'],
-            'message.longitude' => ['required', 'numeric'],
+            'token' => ['nullable', 'string'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric'],
         ];
     }
 }
