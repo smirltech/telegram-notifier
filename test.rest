@@ -1,0 +1,49 @@
+GET {{base_url}}/api/telegram-updates
+
+### Send text message to Telegram channel
+POST {{base_url}}/api/message/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "token": "5666692487:AAEfWkTrGjeDjbzoszpQXDlTRdtjRzsAwfM",
+    "message": {
+        "content": "Hello, world!",
+        "buttons": [
+            {
+                "text": "Button 1",
+                "url": "https://google.com"
+            },
+            {
+                "text": "Button 2",
+                "url": "https://google.com"
+            }
+        ]
+    }
+}
+
+### Send location to Telegram channel
+POST {{base_url}}/api/location/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "token": "5666692487:AAEfWkTrGjeDjbzoszpQXDlTRdtjRzsAwfM",
+    "message": {
+        "latitude": 55.753215,
+        "longitude": 37.622504
+    }
+}
+
+### Send location to Telegram channel
+POST {{base_url}}/api/poll/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "token": "5666692487:AAEfWkTrGjeDjbzoszpQXDlTRdtjRzsAwfM",
+    "message": {
+        "latitude": 55.753215,
+        "longitude": 37.622504
+    }
+}
