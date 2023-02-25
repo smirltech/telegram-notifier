@@ -14,6 +14,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
+use NotificationChannels\Telegram\TelegramBase;
 use NotificationChannels\Telegram\TelegramContact;
 use NotificationChannels\Telegram\TelegramFile;
 use NotificationChannels\Telegram\TelegramLocation;
@@ -47,15 +48,20 @@ class NotificationController extends Controller
             foreach ($payload->buttons ?? [] as $button) {
                 $t->button($button['text'], $button['url']);
             }
-            Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
 
-            return $this->successResponse();
+            return $this->sendNotification($chatId, $t);
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
     }
 
-    private function successResponse()
+    private function sendNotification(string $chatId, TelegramBase $base): JsonResponse
+    {
+        Notification::route('telegram', $chatId)->notify(new TelegramNotification($base));
+        return $this->successResponse();
+    }
+
+    private function successResponse(): JsonResponse
     {
         return Response::json([
             'success' => true,
@@ -63,7 +69,7 @@ class NotificationController extends Controller
         ]);
     }
 
-    private function errorResponse(string $getMessage)
+    private function errorResponse(string $getMessage): JsonResponse
     {
         return Response::json([
             'success' => false,
@@ -88,9 +94,7 @@ class NotificationController extends Controller
             foreach ($payload->buttons ?? [] as $button) {
                 $t->button($button['text'], $button['url']);
             }
-            Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
-
-            return $this->successResponse();
+            return $this->sendNotification($chatId, $t);
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -109,9 +113,8 @@ class NotificationController extends Controller
                 ->latitude($payload->latitude)
                 ->longitude($payload->longitude)
                 ->token($payload->token ?? $this->token);
-            Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
 
-            return $this->successResponse();
+            return $this->sendNotification($chatId, $t);
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -130,9 +133,9 @@ class NotificationController extends Controller
                 ->question($payload->question)
                 ->choices($payload->choices)
                 ->token($payload->token ?? $this->token);
-            Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
 
-            return $this->successResponse();
+
+            return $this->sendNotification($chatId, $t);
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -153,9 +156,8 @@ class NotificationController extends Controller
                 ->lastName($payload->last_name ?? null)
                 ->vcard($payload->vcard ?? '')
                 ->token($payload->token ?? $this->token);
-            Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
 
-            return $this->successResponse();
+            return $this->sendNotification($chatId, $t);
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
