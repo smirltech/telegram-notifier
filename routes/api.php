@@ -20,6 +20,10 @@ Route::get('/telegram-updates', function () {
     $chats = TelegramUpdates::create()->latest()->limit(2)->get();
 });
 
+Route::match(['get', 'post'], '/github-notify/{chatId}', [NotificationController::class, 'github']);
+Route::post('github/{chatId}', [NotificationController::class, 'github']);
+
+
 Route::post('message/{chatId}', [NotificationController::class, 'message']);
 Route::post('location/{chatId}', [NotificationController::class, 'location']);
 Route::post('poll/{chatId}', [NotificationController::class, 'poll']);

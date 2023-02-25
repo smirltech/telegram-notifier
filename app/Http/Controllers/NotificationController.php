@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Payload;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\FileRequest;
 use App\Http\Requests\LocationRequest;
@@ -12,6 +13,7 @@ use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
 use NotificationChannels\Telegram\TelegramBase;
@@ -38,16 +40,15 @@ class NotificationController extends Controller
      * @param string $chatId
      * @return JsonResponse
      */
-    public function message(MessageRequest $request, string $chatId)
+    public function github(Request $request, string $chatId)
     {
         try {
-            $payload = (object)$request->validated();
-            $t = TelegramMessage::create()
-                ->content($payload->content)
-                ->token($payload->token ?? $this->token);
-            foreach ($payload->buttons ?? [] as $button) {
-                $t->button($button['text'], $button['url']);
-            }
+            $payload = Payload::fromArray(data: $request->all());
+
+            $t = TelegramFile::create()
+                ->content($payload->content())
+                ->photo($payload->image())
+                ->button('View on Github', $payload->url());
 
             return $this->sendNotification($chatId, $t);
         } catch (Exception $e) {
@@ -75,6 +76,28 @@ class NotificationController extends Controller
             'success' => false,
             'message' => $getMessage,
         ], 400);
+    }
+
+    /** Send text message to Telegram chat
+     * @param MessageRequest $request
+     * @param string $chatId
+     * @return JsonResponse
+     */
+    public function message(MessageRequest $request, string $chatId)
+    {
+        try {
+            $payload = (object)$request->validated();
+            $t = TelegramMessage::create()
+                ->content($payload->content)
+                ->token($payload->token ?? $this->token);
+            foreach ($payload->buttons ?? [] as $button) {
+                $t->button($button['text'], $button['url']);
+            }
+
+            return $this->sendNotification($chatId, $t);
+        } catch (Exception $e) {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     /** Send file attachment to Telegram chat
