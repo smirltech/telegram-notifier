@@ -1,0 +1,83 @@
+POST {{base_url}}/api/telegram-updates
+
+### Send text message to Telegram channel
+POST {{base_url}}/api/message/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "content": "Hello, world!",
+    "buttons": [
+        {
+            "text": "Button 1",
+            "url": "https://google.com"
+        },
+        {
+            "text": "Button 2",
+            "url": "https://google.com"
+        }
+    ]
+}
+
+
+### Send file to Telegram channel
+POST {{base_url}}/api/file/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "content": "Hello, world!",
+    "file": {
+        "path": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+        "name": "javascript-logo.png",
+        "type": "photo"
+    },
+    "buttons": [
+        {
+            "text": "Button 1",
+            "url": "https://google.com"
+        },
+        {
+            "text": "Button 2",
+            "url": "https://google.com"
+        }
+    ]
+}
+
+### Send location to Telegram channel
+POST {{base_url}}/api/location/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "latitude": 55.753215,
+    "longitude": 37.622504
+}
+
+### Send location to Telegram channel
+POST {{base_url}}/api/poll/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "question": "What is your favorite color?",
+    "choices": [
+        "Red",
+        "Green",
+        "Blue"
+    ]
+}
+
+### Send contact to Telegram channel
+POST {{base_url}}/api/contact/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone_number": "+1234567890",
+    "first_name": "John",
+    "last_name": "Doe",
+    "vcard": "BEGIN:VCARD\nVERSION:3.0\nN:Doe;John;;;\nFN:John Doe\nTEL;TYPE=CELL:+1234567890\nEND:VCARD"
+}
+
+

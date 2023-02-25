@@ -1,11 +1,8 @@
 <?php
 
-use App\Data\Payload;
-use App\Notifications\SendGithubPushNotification;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
+use NotificationChannels\Telegram\TelegramUpdates;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +14,19 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
+Route::get('/telegram-updates', function () {
+    $chats = TelegramUpdates::create()->latest()->limit(2)->get();
+});
+
+Route::post('message/{chatId}', [NotificationController::class, 'message']);
+Route::post('location/{chatId}', [NotificationController::class, 'location']);
+Route::post('poll/{chatId}', [NotificationController::class, 'poll']);
+Route::post('contact/{chatId}', [NotificationController::class, 'contact']);
+Route::post('file/{chatId}', [NotificationController::class, 'file']);
+
+
+return __DIR__ . '/github.php';
 
 
