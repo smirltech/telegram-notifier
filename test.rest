@@ -19,6 +19,31 @@ Accept: application/json
     ]
 }
 
+
+### Send file to Telegram channel
+POST {{base_url}}/api/file/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "content": "Hello, world!",
+    "file": {
+        "path": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+        "name": "javascript-logo.png",
+        "type": "photo"
+    },
+    "buttons": [
+        {
+            "text": "Button 1",
+            "url": "https://google.com"
+        },
+        {
+            "text": "Button 2",
+            "url": "https://google.com"
+        }
+    ]
+}
+
 ### Send location to Telegram channel
 POST {{base_url}}/api/location/-1001504986757
 Content-Type: application/json

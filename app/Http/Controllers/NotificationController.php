@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
+use App\Http\Requests\FileRequest;
 use App\Http\Requests\LocationRequest;
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\PollRequest;
@@ -14,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
 use NotificationChannels\Telegram\TelegramContact;
+use NotificationChannels\Telegram\TelegramFile;
 use NotificationChannels\Telegram\TelegramLocation;
 use NotificationChannels\Telegram\TelegramMessage;
 use NotificationChannels\Telegram\TelegramPoll;
@@ -67,6 +69,31 @@ class NotificationController extends Controller
             'success' => false,
             'message' => $getMessage,
         ], 400);
+    }
+
+    /** Send file attachment to Telegram chat
+     * @param FileRequest $request
+     * @param string $chatId
+     * @return JsonResponse
+     */
+    public function file(FileRequest $request, string $chatId)
+    {
+        try {
+            $payload = (object)$request->validated();
+            $t = TelegramFile::create()
+                ->content($payload->content)
+                ->file($payload->file['path'], $payload->file['type'], $payload->file['name'] ?? null)
+                ->token($payload->token ?? $this->token);
+
+            foreach ($payload->buttons ?? [] as $button) {
+                $t->button($button['text'], $button['url']);
+            }
+            Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
+
+            return $this->successResponse();
+        } catch (Exception $e) {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     /** Send location to Telegram chat

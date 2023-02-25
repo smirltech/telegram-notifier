@@ -24,6 +24,7 @@ Route::post('message/{chatId}', [NotificationController::class, 'message']);
 Route::post('location/{chatId}', [NotificationController::class, 'location']);
 Route::post('poll/{chatId}', [NotificationController::class, 'poll']);
 Route::post('contact/{chatId}', [NotificationController::class, 'contact']);
+Route::post('file/{chatId}', [NotificationController::class, 'file']);
 
 
 return __DIR__ . '/github.php';
