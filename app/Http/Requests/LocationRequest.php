@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SendPollRequest extends FormRequest
+class LocationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class SendPollRequest extends FormRequest
     {
         return [
             'token' => ['nullable', 'string'],
-            'question' => ['required', 'string'],
-            'choices' => ['required', 'array'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric'],
         ];
     }
 }

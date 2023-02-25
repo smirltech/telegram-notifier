@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SendContactRequest;
-use App\Http\Requests\SendLocationRequest;
-use App\Http\Requests\SendMessageRequest;
-use App\Http\Requests\SendPollRequest;
+use App\Http\Requests\ContactRequest;
+use App\Http\Requests\LocationRequest;
+use App\Http\Requests\MessageRequest;
+use App\Http\Requests\PollRequest;
 use App\Notifications\TelegramNotification;
 use Exception;
 use Illuminate\Config\Repository;
@@ -31,11 +31,11 @@ class NotificationController extends Controller
     }
 
     /** Send text message to Telegram chat
-     * @param SendMessageRequest $request
+     * @param MessageRequest $request
      * @param string $chatId
      * @return JsonResponse
      */
-    public function message(SendMessageRequest $request, string $chatId)
+    public function message(MessageRequest $request, string $chatId)
     {
         try {
             $payload = (object)$request->validated();
@@ -70,11 +70,11 @@ class NotificationController extends Controller
     }
 
     /** Send location to Telegram chat
-     * @param SendLocationRequest $request
+     * @param LocationRequest $request
      * @param string $chatId
      * @return JsonResponse
      */
-    public function location(SendLocationRequest $request, string $chatId)
+    public function location(LocationRequest $request, string $chatId)
     {
         try {
             $payload = (object)$request->validated();
@@ -91,11 +91,11 @@ class NotificationController extends Controller
     }
 
     /** Send poll to Telegram chat
-     * @param SendPollRequest $request
+     * @param PollRequest $request
      * @param string $chatId
      * @return JsonResponse
      */
-    public function poll(SendPollRequest $request, string $chatId)
+    public function poll(PollRequest $request, string $chatId)
     {
         try {
             $payload = (object)$request->validated();
@@ -112,11 +112,11 @@ class NotificationController extends Controller
     }
 
     /** Send poll to Telegram chat
-     * @param SendContactRequest $request
+     * @param ContactRequest $request
      * @param string $chatId
      * @return JsonResponse
      */
-    public function contact(SendContactRequest $request, string $chatId)
+    public function contact(ContactRequest $request, string $chatId)
     {
         try {
             $payload = (object)$request->validated();
@@ -124,7 +124,7 @@ class NotificationController extends Controller
                 ->phoneNumber($payload->phone_number)
                 ->firstName($payload->first_name)
                 ->lastName($payload->last_name ?? null)
-                ->vcard($payload->vcard ?? null)
+                ->vcard($payload->vcard ?? '')
                 ->token($payload->token ?? $this->token);
             Notification::route('telegram', $chatId)->notify(new TelegramNotification($t));
 

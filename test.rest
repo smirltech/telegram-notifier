@@ -1,4 +1,4 @@
-GET {{base_url}}/api/telegram-updates
+POST {{base_url}}/api/telegram-updates
 
 ### Send text message to Telegram channel
 POST {{base_url}}/api/message/-1001504986757
@@ -41,6 +41,18 @@ Accept: application/json
         "Green",
         "Blue"
     ]
+}
+
+### Send contact to Telegram channel
+POST {{base_url}}/api/contact/-1001504986757
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone_number": "+1234567890",
+    "first_name": "John",
+    "last_name": "Doe",
+    "vcard": "BEGIN:VCARD\nVERSION:3.0\nN:Doe;John;;;\nFN:John Doe\nTEL;TYPE=CELL:+1234567890\nEND:VCARD"
 }
 
 

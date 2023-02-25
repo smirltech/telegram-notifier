@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SendContactRequest extends FormRequest
+class MessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class SendContactRequest extends FormRequest
     {
         return [
             'token' => ['nullable', 'string'],
-            'phone_number' => ['required', 'string'],
-            'first_name' => ['required', 'string'],
-            'last_name' => ['nullable', 'string'],
-            'vcard' => ['nullable', 'string'],
+            'content' => ['required', 'string'],
+            'buttons' => ['nullable', 'array'],
+            'buttons.*.text' => ['required', 'string'],
+            'buttons.*.url' => ['required', 'string'],
         ];
     }
 }
