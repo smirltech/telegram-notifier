@@ -31,6 +31,4 @@ Route::post('contact/{chatId}', [NotificationController::class, 'contact']);
 Route::post('file/{chatId}', [NotificationController::class, 'file']);
 
 
-return __DIR__ . '/github.php';
-
 
