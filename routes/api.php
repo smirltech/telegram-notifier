@@ -21,7 +21,7 @@ Route::get('/telegram-updates', function () {
 });
 
 Route::match(['get', 'post'], '/github-notify/{chatId}', [NotificationController::class, 'github']);
-Route::post('github/{chatId}', [NotificationController::class, 'github']);
+Route::match(['get', 'post'], 'github/{chatId}', [NotificationController::class, 'github']);
 
 
 Route::post('message/{chatId}', [NotificationController::class, 'message']);
