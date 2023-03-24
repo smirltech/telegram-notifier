@@ -61,8 +61,10 @@ class Payload
         $content .= "Added: " . count($this->added) . ", ";
         $content .= "Modified: " . count($this->modified) . ", ";
         $content .= "Removed: " . count($this->removed) . "\n\n";
-        $content .= "$this->repositoryDescription";
-        $content .= "\n\n";
+        if ($this->repositoryDescription) {
+            $content .= "$this->repositoryDescription";
+            $content .= "\n\n";
+        }
         $content .= $this->hashtag() . "\n";
         $content .= "#{$this->branch()}";
 
@@ -80,7 +82,7 @@ class Payload
 
     private function branch(): array|string
     {
-        return Str::replace(['-','/'], '', $this->branch);
+        return Str::replace(['-', '/'], '', $this->branch);
     }
 
     public function url(): string
