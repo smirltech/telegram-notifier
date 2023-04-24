@@ -1,6 +1,7 @@
 <?php
 
 use Knuckles\Scribe\Extracting\Strategies;
+use Knuckles\Scribe\Matching\RouteMatcher;
 
 return [
 
@@ -430,7 +431,7 @@ INTRO
      * [Advanced] Custom implementation of RouteMatcherInterface to customise how routes are matched
      *
      */
-    'routeMatcher' => \Knuckles\Scribe\Matching\RouteMatcher::class,
+    'routeMatcher' => RouteMatcher::class,
 
     /**
      * For response calls, API resource responses and transformer responses,
@@ -438,5 +439,5 @@ INTRO
      * Tell Scribe which connections should be transacted here.
      * If you only use one db connection, you can leave this as is.
      */
-    'database_connections_to_transact' => [config('database.default')]
+    'database_connections_to_transact' => null
 ];
