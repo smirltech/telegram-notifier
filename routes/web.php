@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'https://github.com/smirltech/telegram-notifier');
+Route::redirect('/', '/docs');
 
 Route::match(['get', 'post'], 'git-deploy', function () {
     Artisan::call('git:deploy');
