@@ -1,10 +1,8 @@
 <?php
 
 use App\Notifications\SendGithubPushNotification;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Notification;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +15,9 @@ use Illuminate\Support\Facades\Notification;
 |
 */
 
-Route::get('/', function () {
-    return app()->version();
+Route::redirect('/', 'https://github.com/smirltech/telegram-notifier');
+
+Route::match(['get', 'post'], 'git-deploy', function () {
+    Artisan::call('git:deploy');
+    return 'Deployed successfully';
 });
