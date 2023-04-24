@@ -28,7 +28,7 @@ class FileRequest extends FormRequest
             'file' => ['required', 'array'],
             'file.name' => ['nullable', 'string'],
             'file.path' => ['required', 'string'],
-            'file.type' => ['nullable', 'string', 'in:photo,video,audio,animation,voice,video_note'],
+            'file.type' => ['required', 'string', 'in:photo,video,audio,animation,voice,video_note'],
             'buttons' => ['nullable', 'array'],
             'buttons.*.text' => ['required', 'string'],
             'buttons.*.url' => ['required', 'string'],
