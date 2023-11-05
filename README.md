@@ -9,8 +9,9 @@ github repository.
 ## How to use
 
 1. Add https://t.me/SmirlTechNotifierBot to your Telegram group.
-2. Get your group id by sending `/getgroupid` to the  https://t.me/myidbot
-3. Add `https://telegram.smirltech.com/api/github/{groupId}` to your github repository webhook.
+2. Add  https://t.me/myidbot to your Telegram group.
+3. Get your group id by sending `/getgroupid` to the  https://t.me/myidbot
+4. Add `https://telegram.smirltech.com/api/github/{groupId}` to your github repository webhook.
 
 ## How it works
 
