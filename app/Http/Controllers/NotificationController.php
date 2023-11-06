@@ -14,6 +14,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
 use NotificationChannels\Telegram\TelegramBase;
@@ -39,9 +40,11 @@ class NotificationController extends Controller
      * @param MessageRequest $request
      * @param string $chatId
      * @return JsonResponse
+     * @throws \JsonException
      */
     public function github(Request $request, string $chatId)
     {
+
         try {
             $payload = Payload::fromArray(data: $request->all());
 
@@ -52,7 +55,10 @@ class NotificationController extends Controller
 
             return $this->sendNotification($chatId, $t);
         } catch (Exception $e) {
+            if(App::isProduction())
             return $this->errorResponse($e->getMessage());
+            else
+                throw $e;
         }
     }
 
