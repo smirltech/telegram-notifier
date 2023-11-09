@@ -27,7 +27,7 @@ class PushPayload implements Payload
     public static function fromArray(array $data): static
     {
         return new static(
-            repository: $data['repository']['full_name'],
+            repository: $data['repository']['name'],
             repositoryUrl: $data['repository']['html_url'],
             repositoryDescription: self::removeSpecialChar(optional($data['repository'])['description']),
             branch: self::removeSpecialChar(str_replace('refs/heads/', '', $data['ref'])),
@@ -55,35 +55,34 @@ class PushPayload implements Payload
     public function content(): string
     {
         // create a message content from attributes using md
-        $content = "*{$this->sender}* hash pushed to [$this->repository]($this->repositoryUrl)\n";
+        $content = "*Push* to [$this->repository]($this->repositoryUrl)\n";
+        $content .= "Sender: [$this->sender]($this->url)\n";
         $content .= "\n";
-        $content .= "_{$this->message}_ \n\n";
+        if ($this->message != null)
+            $content .= "_{$this->message}_ \n\n";
         $content .= "Commits: " . count($this->commits ?? []) . ", ";
         $content .= "Added: " . count($this->added ?? []) . ", ";
         $content .= "Modified: " . count($this->modified ?? []) . ", ";
         $content .= "Removed: " . count($this->removed ?? []) . "\n\n";
-        if ($this->repositoryDescription) {
-            $content .= "$this->repositoryDescription";
-            $content .= "\n\n";
-        }
-        $content .= $this->hashtag() . "\n";
-        $content .= "#{$this->branch()}";
+
+        $content .= "Branch: *{$this->branch()}*";
+
 
         //  dd($content);
 
         return $content;
     }
 
-    public function hashtag(): string
+    private function branch(): array|string
     {
-        return '#' . Str::replace('-', '', explode('/', $this->repository)[1]);
+        return Str::replace(['-', '/'], '', $this->branch);
     }
 
     //hashtag() is a method that returns the hashtag from the repository name
 
-    private function branch(): array|string
+    public function hashtag(): string
     {
-        return Str::replace(['-', '/'], '', $this->branch);
+        return '#' . Str::replace('-', '', $this->repository);
     }
 
     public function url(): string
