@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\Payload;
+use App\Enums\PayloadSelector;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\FileRequest;
 use App\Http\Requests\LocationRequest;
@@ -17,11 +18,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
+use JsonException;
 use NotificationChannels\Telegram\TelegramBase;
 use NotificationChannels\Telegram\TelegramContact;
 use NotificationChannels\Telegram\TelegramFile;
 use NotificationChannels\Telegram\TelegramLocation;
-use NotificationChannels\Telegram\TelegramMessage;
 use NotificationChannels\Telegram\TelegramPoll;
 
 class NotificationController extends Controller
@@ -40,13 +41,19 @@ class NotificationController extends Controller
      * @param MessageRequest $request
      * @param string $chatId
      * @return JsonResponse
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function github(Request $request, string $chatId)
     {
-
         try {
-            $payload = Payload::fromArray(data: $request->all());
+            $event = $request->header('X-GitHub-Event');
+
+            $payload = PayloadSelector::tryFrom($event)
+                ?->getPayload(data: $request->all());
+
+            if (!$payload) {
+                return $this->errorResponse('Invalid event type');
+            }
 
             $t = TelegramFile::create()
                 ->content($payload->content())
@@ -55,11 +62,19 @@ class NotificationController extends Controller
 
             return $this->sendNotification($chatId, $t);
         } catch (Exception $e) {
-            if(App::isProduction())
-            return $this->errorResponse($e->getMessage());
+            if (App::isProduction())
+                return $this->errorResponse($e->getMessage());
             else
                 throw $e;
         }
+    }
+
+    private function errorResponse(string $getMessage): JsonResponse
+    {
+        return Response::json([
+            'success' => false,
+            'message' => $getMessage,
+        ], 400);
     }
 
     private function sendNotification(string $chatId, TelegramBase $base): JsonResponse
@@ -74,36 +89,6 @@ class NotificationController extends Controller
             'success' => true,
             'message' => 'Notification sent successfully',
         ]);
-    }
-
-    private function errorResponse(string $getMessage): JsonResponse
-    {
-        return Response::json([
-            'success' => false,
-            'message' => $getMessage,
-        ], 400);
-    }
-
-    /** Send text message to Telegram chat
-     * @param MessageRequest $request
-     * @param string $chatId
-     * @return JsonResponse
-     */
-    public function message(MessageRequest $request, string $chatId)
-    {
-        try {
-            $payload = (object)$request->validated();
-            $t = TelegramMessage::create()
-                ->content($payload->content)
-                ->token($payload->token ?? $this->token);
-            foreach ($payload->buttons ?? [] as $button) {
-                $t->button($button['text'], $button['url']);
-            }
-
-            return $this->sendNotification($chatId, $t);
-        } catch (Exception $e) {
-            return $this->errorResponse($e->getMessage());
-        }
     }
 
     /** Send file attachment to Telegram chat

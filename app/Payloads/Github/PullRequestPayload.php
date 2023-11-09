@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Data;
+namespace App\Payloads\Github;
 
 use Illuminate\Support\Str;
 
-class Payload
+class PullRequestPayload implements Payload
 {
 
     public function __construct(
@@ -44,7 +44,7 @@ class Payload
 
     public static function removeSpecialChar(?string $str): null|array|string
     {
-        if ($str==null) return null;
+        if ($str == null) return null;
 
         $res = str_replace(array('_'), '-', $str);
 
@@ -58,10 +58,10 @@ class Payload
         $content = "*{$this->sender}* on [$this->repository]($this->repositoryUrl)\n";
         $content .= "\n";
         $content .= "_{$this->message}_ \n\n";
-        $content .= "Commits: " . count($this->commits??[]) . ", ";
-        $content .= "Added: " . count($this->added??[]) . ", ";
-        $content .= "Modified: " . count($this->modified??[]) . ", ";
-        $content .= "Removed: " . count($this->removed??[]) . "\n\n";
+        $content .= "Commits: " . count($this->commits ?? []) . ", ";
+        $content .= "Added: " . count($this->added ?? []) . ", ";
+        $content .= "Modified: " . count($this->modified ?? []) . ", ";
+        $content .= "Removed: " . count($this->removed ?? []) . "\n\n";
         if ($this->repositoryDescription) {
             $content .= "$this->repositoryDescription";
             $content .= "\n\n";
@@ -69,7 +69,7 @@ class Payload
         $content .= $this->hashtag() . "\n";
         $content .= "#{$this->branch()}";
 
-      //  dd($content);
+        //  dd($content);
 
         return $content;
     }
