@@ -22,11 +22,13 @@ class IssuesPayload implements Payload
 
     public static function fromArray(array $data): static
     {
+
+        $assignee = optional($data)['assignee'] ?? $data['issue']['assignee'];
         return new static(
             action: $data['action'],
-            assigneeLogin: $data['assignee']['login'],
-            assigneeAvatarUrl: $data['assignee']['avatar_url'],
-            assigneeUrl: $data['assignee']['html_url'],
+            assigneeLogin: $assignee['login'],
+            assigneeAvatarUrl: $assignee['avatar_url'],
+            assigneeUrl: $assignee['html_url'],
             issueNumber: $data['issue']['number'],
             issueTitle: $data['issue']['title'],
             issueUrl: $data['issue']['html_url'],
