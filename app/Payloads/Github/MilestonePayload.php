@@ -47,8 +47,9 @@ class MilestonePayload implements Payload
         // create a message content from attributes using md
         $content = "*Milestone* [#{$this->milestoneNumber}]($this->milestoneUrl) ";
         $content .= "*$this->action*\n\n";
-        $content .= "Title: {$this->milestoneTitle} \n";
-        $content .= "Due on: {$this->dueOn->format('d/m/Y')} \n";
+        $content .= "Title: {$this->milestoneTitle} \n\n";
+
+        $content .= "*Due on*: {$this->dueOn->format('d/m/Y')} \n";
 
         $content .= "\n";
         $content .= "Open issues: *{$this->openIssues}* \n";
