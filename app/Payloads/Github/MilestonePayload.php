@@ -50,6 +50,8 @@ class MilestonePayload implements Payload
         $content .= "Title: {$this->milestoneTitle} \n\n";
 
         $content .= "*Due on*: {$this->dueOn->format('d/m/Y')} \n";
+        $content .= "*Delay*: {$this->dueOn->diffForHumans()} \n";
+
 
         $content .= "\n";
         $content .= "Open issues: *{$this->openIssues}* \n";
