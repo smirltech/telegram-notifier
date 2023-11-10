@@ -51,8 +51,8 @@ class MilestonePayload implements Payload
 
         $content .= "*Due on*: {$this->dueOn->format('d/m/Y')} \n";
 
-        if ($this->dueOn->isPast())
-            $content .= "*Delay*: {$this->dueOn->diffForHumans()} \n";
+        // if ($this->dueOn->isPast())
+        $content .= "*Delay*: {$this->dueOn->diffForHumans()} \n";
 
 
         $content .= "\n";
