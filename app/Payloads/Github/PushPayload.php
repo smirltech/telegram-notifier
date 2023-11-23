@@ -20,6 +20,7 @@ class PushPayload implements Payload
         public ?array  $removed,
         public ?array  $modified,
         public ?string $message,
+        private ?array $data,
     )
     {
     }
@@ -38,7 +39,8 @@ class PushPayload implements Payload
             added: optional($data['head_commit'])['added'],
             removed: optional($data['head_commit'])['removed'],
             modified: optional($data['head_commit'])['modified'],
-            message: self::removeSpecialChar(optional($data['head_commit'])['message'])
+            message: self::removeSpecialChar(optional($data['head_commit'])['message']),
+            data: $data
         );
     }
 
@@ -95,4 +97,8 @@ class PushPayload implements Payload
         return $this->image;
     }
 
+    public function shouldNotify(): bool
+    {
+        return !$this->data ['deleted'];
+    }
 }

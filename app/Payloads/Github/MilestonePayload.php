@@ -54,7 +54,7 @@ class MilestonePayload implements Payload
         if ($this->action == 'closed') {
             $content .= "*Delay*: {$this->dueOn->diffForHumans()} \n";
         }
-        
+
         $content .= "\n";
         $content .= "Open issues: *{$this->openIssues}* \n";
         $content .= "Closed issues: *{$this->closedIssues}* \n";
@@ -79,4 +79,8 @@ class MilestonePayload implements Payload
         return url('milestone.png');
     }
 
+    public function shouldNotify(): bool
+    {
+        return $this->action == 'closed';
+    }
 }

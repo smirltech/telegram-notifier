@@ -2,43 +2,49 @@
 
 namespace App\Payloads\Github;
 
-use Illuminate\Support\Str;
-
 class PullRequestPayload implements Payload
 {
 
     public function __construct(
-        public ?string $repository,
-        public ?string $repositoryUrl,
-        public ?string $repositoryDescription,
-        public ?string $branch,
-        public ?string $sender,
+        public ?string $action,
+        public ?string $assigneeLogin,
+        public ?string $senderAvatarUrl,
+        public ?string $senderUrl,
+        public ?int    $number,
+        public ?string $title,
         public ?string $url,
-        public ?string $image,
-        public ?array  $commits,
-        public ?array  $added,
-        public ?array  $removed,
-        public ?array  $modified,
-        public ?string $message,
+        public ?string $milestoneTitle,
+        public ?string $repositoryName,
+        public ?string $merged,
+        public ?int    $commits,
+        public ?string $body,
+        public ?int    $additions,
+        public ?int    $changed_files,
+        public ?int    $deletions,
     )
     {
     }
 
     public static function fromArray(array $data): static
     {
+
+        $sender = optional($data)['sender'];
         return new static(
-            repository: $data['repository']['full_name'],
-            repositoryUrl: $data['repository']['html_url'],
-            repositoryDescription: self::removeSpecialChar(optional($data['repository'])['description']),
-            branch: self::removeSpecialChar(str_replace('refs/heads/', '', $data['ref'])),
-            sender: $data['sender']['login'],
-            url: $data['compare'],
-            image: $data['sender']['avatar_url'],
-            commits: $data['commits'],
-            added: optional($data['head_commit'])['added'],
-            removed: optional($data['head_commit'])['removed'],
-            modified: optional($data['head_commit'])['modified'],
-            message: self::removeSpecialChar(optional($data['head_commit'])['message'])
+            action: $data['action'],
+            assigneeLogin: $sender['login'],
+            senderAvatarUrl: $sender['avatar_url'],
+            senderUrl: $sender['html_url'],
+            number: $data['number'],
+            title: $data['pull_request']['title'],
+            url: $data['pull_request']['html_url'],
+            milestoneTitle: self::removeSpecialChar(optional(['milestone'])['title']),
+            repositoryName: self::removeSpecialChar(optional($data['repository'])['name']),
+            merged: $data['pull_request']['merged'] ? 'Yes' : 'No',
+            commits: $data['pull_request']['commits'],
+            body: $data['pull_request']['body'],
+            additions: $data['pull_request']['additions'],
+            changed_files: $data['pull_request']['changed_files'],
+            deletions: $data['pull_request']['deletions'],
         );
     }
 
@@ -46,44 +52,26 @@ class PullRequestPayload implements Payload
     {
         if ($str == null) return null;
 
-        $res = str_replace(array('_'), '-', $str);
-
         // Returning the result
-        return $res;
+        return str_replace(array('_'), '-', $str);
     }
 
     public function content(): string
     {
         // create a message content from attributes using md
-        $content = "*{$this->sender}* on [$this->repository]($this->repositoryUrl)\n";
+        $content = "*Pull request* [#{$this->number}]($this->url) ";
+        $content .= "*$this->action*\n";
+        $content .= "Author : [$this->assigneeLogin]($this->senderUrl)\n\n";
+        $content .= "Title: {$this->title} \n";
+        $content .= "Body : _{$this->body}_ \n";
         $content .= "\n";
-        $content .= "_{$this->message}_ \n\n";
-        $content .= "Commits: " . count($this->commits ?? []) . ", ";
-        $content .= "Added: " . count($this->added ?? []) . ", ";
-        $content .= "Modified: " . count($this->modified ?? []) . ", ";
-        $content .= "Removed: " . count($this->removed ?? []) . "\n\n";
-        if ($this->repositoryDescription) {
-            $content .= "$this->repositoryDescription";
-            $content .= "\n\n";
-        }
-        $content .= $this->hashtag() . "\n";
-        $content .= "#{$this->branch()}";
-
-        //  dd($content);
+        $content .= "Commits: {$this->commits} \n";
+        $content .= "Changed files  :{$this->changed_files} \n";
+        $content .= "Additions : {$this->additions} \n";
+        $content .= "Deletions : {$this->deletions} \n\n";
+        $content .= "Merged: *{$this->merged}* \n\n";
 
         return $content;
-    }
-
-    public function hashtag(): string
-    {
-        return '#' . Str::replace('-', '', explode('/', $this->repository)[1]);
-    }
-
-    //hashtag() is a method that returns the hashtag from the repository name
-
-    private function branch(): array|string
-    {
-        return Str::replace(['-', '/'], '', $this->branch);
     }
 
     public function url(): string
@@ -93,7 +81,11 @@ class PullRequestPayload implements Payload
 
     public function image(): string
     {
-        return $this->image;
+        return $this->senderAvatarUrl;
     }
 
+    public function shouldNotify(): bool
+    {
+        return $this->action == 'review_requested' or $this->action == 'closed';
+    }
 }

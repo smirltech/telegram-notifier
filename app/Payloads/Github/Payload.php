@@ -11,4 +11,6 @@ interface Payload
 
     public function url(): string;
 
+    public function shouldNotify(): bool;
+
 }

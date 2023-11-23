@@ -55,6 +55,10 @@ class NotificationController extends Controller
                 return $this->errorResponse('Invalid event type');
             }
 
+            if (!$payload->shouldNotify()) {
+                return $this->errorResponse('This event should not be notified');
+            }
+
             $t = TelegramFile::create()
                 ->content($payload->content())
                 ->photo($payload->image())

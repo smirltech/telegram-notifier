@@ -71,4 +71,8 @@ class IssuesPayload implements Payload
         return $this->assigneeAvatarUrl;
     }
 
+    public function shouldNotify(): bool
+    {
+        return $this->action == 'assigned' or $this->action == 'edited' or $this->action == 'closed';
+    }
 }
