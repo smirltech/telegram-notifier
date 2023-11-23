@@ -144,7 +144,40 @@ X-GitHub-Event: push
     "compare": "https://github.com/MarienMupenda/upl-sms/compare/affda8e6c124...000000000000",
     "commits": [
     ],
-    "head_commit": null
+    "head_commit": {
+        "id": "3001e3b1e0f0f675708edd00b1f9f1a5c2f8436f",
+        "tree_id": "c45de083883fab9571953ce8cd5b14b7c2624a69",
+        "distinct": true,
+        "message": "Merge pull request #157 from MarienMupenda/156\n\n156 : [Finance]  Gérer FraisCategorie",
+        "timestamp": "2023-11-23T10:34:38+02:00",
+        "url": "https://github.com/MarienMupenda/upl-sms/commit/3001e3b1e0f0f675708edd00b1f9f1a5c2f8436f",
+        "author": {
+            "name": "Marien Mupenda",
+            "email": "57844897+MarienMupenda@users.noreply.github.com",
+            "username": "MarienMupenda"
+        },
+        "committer": {
+            "name": "GitHub",
+            "email": "noreply@github.com",
+            "username": "web-flow"
+        },
+        "added": [
+            "finance/app/Http/Livewire/FraisCategories/CreateUpdateFraisCategorie.php",
+            "finance/app/Http/Livewire/FraisCategories/ListFraisCategories.php",
+            "finance/app/Http/Livewire/Users/ListUsersComponent.php",
+            "finance/resources/views/livewire/frais_categories/create_update-frais_categorie.blade.php",
+            "finance/resources/views/livewire/frais_categories/list-frais_categories.blade.php",
+            "finance/tests/Feature/Pages/FraisCategoriesTest.php"
+        ],
+        "removed": [
+            "finance/app/Http/Livewire/Users/ListUsers.php"
+        ],
+        "modified": [
+            "finance/resources/views/partials/sidebar.blade.php",
+            "finance/routes/web.php",
+            "finance/tests/Feature/Pages/FraisTest.php"
+        ]
+    }
 }
 
 

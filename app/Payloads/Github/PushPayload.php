@@ -99,6 +99,16 @@ class PushPayload implements Payload
 
     public function shouldNotify(): bool
     {
-        return !$this->data ['deleted'];
+        return !$this->data ['deleted'] and !$this->isGithub();
+    }
+
+    private function isGithub(): bool
+    {
+        $head_commit = $this->data['head_commit'];
+        if (!$head_commit) {
+            return false;
+        }
+
+        return $head_commit['committer']['username'] == 'web-flow' or $head_commit['committer']['username'] == 'github-actions';
     }
 }

@@ -63,6 +63,7 @@ class PullRequestPayload implements Payload
         $content .= "*$this->action*\n";
         $content .= "Author : [$this->assigneeLogin]($this->senderUrl)\n\n";
         $content .= "Title: {$this->title} \n";
+        $content .= "\n";
         $content .= "Body : _{$this->body}_ \n";
         $content .= "\n";
         $content .= "Commits: {$this->commits} \n";
