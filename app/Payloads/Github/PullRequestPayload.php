@@ -41,7 +41,7 @@ class PullRequestPayload implements Payload
             repositoryName: self::removeSpecialChar(optional($data['repository'])['name']),
             merged: $data['pull_request']['merged'] ? 'Yes' : 'No',
             commits: $data['pull_request']['commits'],
-            body: $data['pull_request']['body'],
+            body: self::removeSpecialChar($data['pull_request']['body']),
             additions: $data['pull_request']['additions'],
             changed_files: $data['pull_request']['changed_files'],
             deletions: $data['pull_request']['deletions'],

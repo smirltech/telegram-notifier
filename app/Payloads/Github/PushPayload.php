@@ -70,8 +70,6 @@ class PushPayload implements Payload
         $content .= "Branch: *{$this->branch()}*";
 
 
-        //  dd($content);
-
         return $content;
     }
 
