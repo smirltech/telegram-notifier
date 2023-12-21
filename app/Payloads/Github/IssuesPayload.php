@@ -73,6 +73,6 @@ class IssuesPayload implements Payload
 
     public function shouldNotify(): bool
     {
-        return $this->action == 'assigned' or $this->action == 'edited' or $this->action == 'closed';
+        return $this->action == 'assigned' or $this->action == 'edited' or $this->action == 'closed' or $this->action == 'reopened';
     }
 }
